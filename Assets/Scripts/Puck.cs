@@ -7,6 +7,9 @@ public class Puck : MonoBehaviour
     public float slowdownFactor = 1f;
     private Rigidbody2D rb;
 
+    public AudioSource audioSource;
+    public AudioClip paddleHitSound;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,5 +35,16 @@ public class Puck : MonoBehaviour
     void FixedUpdate()
     {
         
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Paddle"))
+        {
+            // Play paddle hit sound
+            if (audioSource != null && paddleHitSound != null)
+            {
+                audioSource.PlayOneShot(paddleHitSound);
+            }
+        }
     }
 }

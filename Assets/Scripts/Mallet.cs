@@ -7,7 +7,7 @@ public class Mallet : MonoBehaviour
     public bool isPlayerOne;
 
     public float boundaryX = 7f; 
-    public float boundaryY = 3f;
+    public float boundaryY = 7f;
     public Transform puck;
     private Vector3 targetPosition;
 

@@ -17,7 +17,10 @@ public class GameManager : MonoBehaviour
     public GameObject StartCanvas;
     public TMP_Text WinText;
 
-    private float time = 1f;
+    public AudioClip winSound;
+    public AudioSource audioSource;
+
+    //private float time = 1f;
     void Awake()
     {
         
@@ -95,6 +98,7 @@ public class GameManager : MonoBehaviour
         if(rightScore == 7)
         {
             WinCanvas.SetActive(true);
+            audioSource.PlayOneShot(winSound);
         }
     }
     public void StartGame()
