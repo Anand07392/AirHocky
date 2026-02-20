@@ -24,10 +24,19 @@ public class Mallet : MonoBehaviour
 
         if (isPlayerOne)
         {
-            if (Input.GetKey(KeyCode.W)) move.y = 1;
-            if (Input.GetKey(KeyCode.S)) move.y = -1;
-            if (Input.GetKey(KeyCode.A)) move.x = -1;
-            if (Input.GetKey(KeyCode.D)) move.x = 1;
+            // Mouse position in screen
+            Vector3 mouseScreenPos = Input.mousePosition;
+
+            // Convert screen position to world position
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+            mouseWorldPos.z = transform.position.z; // keep same Z
+
+            // Direction from player to mouse
+            Vector2 direction = (mouseWorldPos - transform.position);
+
+            // Normalize so speed is constant
+            move = direction.normalized;
+
         }
         else
         {

@@ -17,8 +17,11 @@ public class GameManager : MonoBehaviour
     public GameObject StartCanvas;
     public TMP_Text WinText;
 
+    [Header("Audio")]
     public AudioClip winSound;
     public AudioSource audioSource;
+    public AudioClip buttonSound;
+    public AudioSource buttonAudio;
 
     //private float time = 1f;
     void Awake()
@@ -103,7 +106,33 @@ public class GameManager : MonoBehaviour
     }
     public void StartGame()
     {
+        buttonAudio.PlayOneShot(buttonSound);
+        StartCoroutine(StartGameWithDelay());
+        
+    }
+    private IEnumerator StartGameWithDelay()
+    {
+        yield return new WaitForSeconds(1f);
+
         Time.timeScale = 1f;
         StartCanvas.SetActive(false);
+    }
+
+    public void RestartGame()
+    {
+        buttonAudio.PlayOneShot(buttonSound);
+        StartCoroutine(RestartWithDelay());
+    }
+
+    private IEnumerator RestartWithDelay()
+    {
+        yield return new WaitForSeconds(2f);
+
+        leftScore = 0;
+        rightScore = 0;
+        UpdateUI();
+        puck.ResetAndServe(true);
+        WinCanvas.SetActive(false);
+        Time.timeScale = 1f;
     }
 }
